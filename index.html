@@ -85,9 +85,23 @@ a.nav:hover::after,a.nav:focus-visible::after{transform:scaleX(1);transform-orig
 <script>
 (function(){
   var stage=document.getElementById('stage'),frame=document.getElementById('frame');
-  // contain: the whole 1920x1080 frame fits the window, no scrolling; centred, extra space is page colour
-  function fit(){var w=frame.clientWidth,h=frame.clientHeight,s=Math.min(w/1920,h/1080);
-    stage.style.transform='translate('+((w-1920*s)/2)+'px,'+((h-1080*s)/2)+'px) scale('+s+')'}
+  // Fill the window edge to edge with no scrolling: scale to the window width, then fit the stage
+  // height (V) to the window. The headline stays on the bottom edge, the big photo stretches/crops
+  // to match, and the small photo block shrinks into the space between the CTA and the headline.
+  var ps=document.getElementById('ps'),pb=document.getElementById('pb'),head=document.querySelector('.head'),
+      idx=document.querySelector('p[data-d="820"]');
+  function fit(){
+    var w=frame.clientWidth,h=frame.clientHeight,s=w/1920,V=h/s,ox=0,oy=0;
+    if(V<760){s=h/760;V=760;ox=(w-1920*s)/2}            // ultra-wide: keep the layout readable
+    else if(V>1400){oy=(h-1400*s)/2;V=1400}            // tall/portrait: stop stretching, centre
+    var headTop=V-326.5, r=Math.min(1,(headTop-330)/423.5);
+    head.style.top=headTop+'px';
+    pb.style.height=(V-183)+'px';
+    var pt=330+98*r; ps.style.top=pt+'px'; ps.style.width=(348*r)+'px'; ps.style.height=(278*r)+'px';
+    idx.style.top=pt+'px';
+    stage.style.height=V+'px';
+    stage.style.transform='translate('+ox+'px,'+oy+'px) scale('+s+')';
+  }
   addEventListener('resize',fit);fit();
 
   // Face / packaging / texture, repeating. All cards share one size (portrait or landscape, same area).
