@@ -14,7 +14,8 @@
 html,body{margin:0;background:var(--bg)}
 :root{padding:0}
 body{overflow-x:hidden;color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased}
-.frame{position:relative;width:100vw;height:56.25vw;overflow:hidden;background:var(--bg);cursor:pointer}
+html,body{height:100%;overflow:hidden}
+.frame{position:relative;width:100vw;height:100vh;height:100dvh;overflow:hidden;background:var(--bg)}
 .stage{position:absolute;left:0;top:0;width:1920px;height:1080px;transform-origin:0 0}
 .a{position:absolute;margin:0;white-space:nowrap}
 .logo{font-family:var(--logo);font-weight:300;font-size:34px;line-height:34px;left:49.5px;top:55px}
@@ -84,7 +85,9 @@ a.nav:hover::after,a.nav:focus-visible::after{transform:scaleX(1);transform-orig
 <script>
 (function(){
   var stage=document.getElementById('stage'),frame=document.getElementById('frame');
-  function fit(){stage.style.transform='scale('+(frame.clientWidth/1920)+')'}
+  // contain: the whole 1920x1080 frame fits the window, no scrolling; centred, extra space is page colour
+  function fit(){var w=frame.clientWidth,h=frame.clientHeight,s=Math.min(w/1920,h/1080);
+    stage.style.transform='translate('+((w-1920*s)/2)+'px,'+((h-1080*s)/2)+'px) scale('+s+')'}
   addEventListener('resize',fit);fit();
 
   // Face / packaging / texture, repeating. All cards share one size (portrait or landscape, same area).
@@ -170,7 +173,6 @@ a.nav:hover::after,a.nav:focus-visible::after{transform:scaleX(1);transform-orig
   function play(){cancelAnimationFrame(raf);t0=performance.now();raf=requestAnimationFrame(tick)}
   window.lumielSeek=function(t){cancelAnimationFrame(raf);render(t)};
   if(reduce||location.hash==='#final')render(1e9);else play();
-  frame.addEventListener('click',play);
   [].forEach.call(document.querySelectorAll('a.lk'),function(a){a.addEventListener('click',function(e){e.preventDefault();e.stopPropagation()})});
 })();
 </script>
