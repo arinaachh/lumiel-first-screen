@@ -255,7 +255,8 @@ a.nav:hover::after,a.nav:focus-visible::after{transform:scaleX(1)}
 
   var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   var t0=performance.now(),raf=0;
-  function tick(now){var t=now-t0;render(t);if(t<END)raf=requestAnimationFrame(tick);else render(1e9)}
+  var SPEED=1.15;   // whole intro plays 15% faster
+  function tick(now){var t=(now-t0)*SPEED;render(t);if(t<END)raf=requestAnimationFrame(tick);else render(1e9)}
   function play(){cancelAnimationFrame(raf);t0=performance.now();raf=requestAnimationFrame(tick)}
   window.lumielSeek=function(t){cancelAnimationFrame(raf);render(t)};
   if(reduce||location.hash==='#final')render(1e9);else play();
