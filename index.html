@@ -112,9 +112,10 @@ a.nav:hover::after,a.nav:focus-visible::after{transform:scaleX(1)}
     // headline on the bottom edge; cream photo shrinks only if the window is very short
     var headTop=Math.min(V-330,750+dy);
     head.style.top=headTop+'px';
-    // space between the CTA and the headline: the gaps around the cream photo shrink first, then the photo
-    var A=headTop-dy-330, th=Math.max(TH*.6,Math.min(TH,A-70)), rest=Math.max(0,A-th), r=th/TH;
-    var tt=330+dy+rest*97/141; ps.style.left=c1+'px';ps.style.top=tt+'px';ps.style.width=(TW*r)+'px';ps.style.height=th+'px';
+    // space between the CTA and the headline: the cream photo and the gaps above and below it
+    // scale together, so the photo keeps 348:278 and the gaps keep Figma's 97:278:44 rhythm
+    var A=headTop-dy-330, r=Math.max(.6,Math.min(1,A/419)), th=TH*r;
+    var tt=330+dy+97*r; ps.style.left=c1+'px';ps.style.top=tt+'px';ps.style.width=(TW*r)+'px';ps.style.height=th+'px';
     idx.style.top=(tt-1)+'px';
     stage.style.width=W+'px';stage.style.height=V+'px';
     stage.style.transform='scale('+s+')';
