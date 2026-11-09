@@ -81,9 +81,9 @@ a.nav:hover::after,a.nav:focus-visible::after{transform:scaleX(1)}
 .hc-add img{width:16px;height:16px;transition:transform .45s cubic-bezier(.34,1.56,.64,1)}
 .hc-add:hover img,.hc-add:focus-visible img{transform:translate(4px,-4px)}
 .hc-add:focus-visible{outline:2px solid var(--ink);outline-offset:4px}
-/* underline under the words only (not the arrow), drawn left to right on hover like the menu links */
+/* underline across the whole button, ending where the arrow ink ends (2.4px inside the 16px icon) */
 .hc-add{position:relative}
-.hc-add::after{content:"";position:absolute;left:0;right:26px;bottom:-5px;height:1.5px;background:var(--ink);transform:scaleX(0);transform-origin:left;transition:transform .45s cubic-bezier(.65,0,.25,1)}
+.hc-add::after{content:"";position:absolute;left:0;right:2.4px;bottom:-5px;height:1.5px;background:var(--ink);transform:scaleX(0);transform-origin:left;transition:transform .45s cubic-bezier(.65,0,.25,1)}
 .hc-add:hover::after,.hc-add:focus-visible::after{transform:scaleX(1)}
 @media (prefers-reduced-motion:reduce){.hs,.hs-card,.hc-add img,.hc-add::after,.hc-close{transition:none}}
 
