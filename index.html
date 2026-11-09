@@ -81,9 +81,9 @@ a.nav:hover::after,a.nav:focus-visible::after{transform:scaleX(1)}
 .hc-add img{width:16px;height:16px;transition:transform .45s cubic-bezier(.34,1.56,.64,1)}
 .hc-add:hover img,.hc-add:focus-visible img{transform:translate(4px,-4px)}
 .hc-add:focus-visible{outline:2px solid var(--ink);outline-offset:4px}
-/* underline across the whole button, ending where the arrow ink ends (2.4px inside the 16px icon) */
+/* underline across the whole button, ending under the tip of the arrow in its hover position (ink is 2.4px inside the icon, icon shifts 4px) */
 .hc-add{position:relative}
-.hc-add::after{content:"";position:absolute;left:0;right:2.4px;bottom:-5px;height:1.5px;background:var(--ink);transform:scaleX(0);transform-origin:left;transition:transform .45s cubic-bezier(.65,0,.25,1)}
+.hc-add::after{content:"";position:absolute;left:0;right:-1.6px;bottom:-5px;height:1.5px;background:var(--ink);transform:scaleX(0);transform-origin:left;transition:transform .45s cubic-bezier(.65,0,.25,1)}
 .hc-add:hover::after,.hc-add:focus-visible::after{transform:scaleX(1)}
 @media (prefers-reduced-motion:reduce){.hs,.hs-card,.hc-add img,.hc-add::after,.hc-close{transition:none}}
 
